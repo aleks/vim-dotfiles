@@ -19,6 +19,7 @@ set autowrite     " Automatically :write before running commands
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
+colorscheme smyck
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -56,6 +57,9 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
+set paste
+set hlsearch
+
 " Display extra whitespace
 set list listchars=tab:»·,trail:·
 
@@ -78,10 +82,6 @@ highlight Folded  guibg=#0A0A0A guifg=#9090D0
 " Numbers
 set number
 set numberwidth=4
-
-" Pasting
-set paste
-set hlsearch
 
 " Snippets are activated by Shift+Tab
 let g:snippetsEmu_key = "<S-Tab>"
@@ -109,12 +109,6 @@ map <Leader>ct :!ctags -R .<CR>
 
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
-
-" Get off my lawn
-" nnoremap <Left> :echoe "Use h"<CR>
-" nnoremap <Right> :echoe "Use l"<CR>
-" nnoremap <Up> :echoe "Use k"<CR>
-" nnoremap <Down> :echoe "Use j"<CR>
 
 " vim-rspec mappings
 nnoremap <Leader>tt :call RunCurrentSpecFile()<CR>
