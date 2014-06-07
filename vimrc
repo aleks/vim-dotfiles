@@ -19,7 +19,7 @@ set autowrite     " Automatically :write before running commands
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
-colorscheme smyck
+" colorscheme smyck
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
