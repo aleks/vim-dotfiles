@@ -57,7 +57,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 
-set paste
+" set paste
 set hlsearch
 
 " Display extra whitespace
@@ -85,21 +85,6 @@ set numberwidth=4
 
 " Snippets are activated by Shift+Tab
 let g:snippetsEmu_key = "<S-Tab>"
-
-" Tab completion
-" will insert tab at beginning of line,
-" will use completion if not at beginning
-set wildmode=list:longest,list:full
-set complete=.,w,t
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 
 " Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
 let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
@@ -171,3 +156,8 @@ let g:ctrlp_custom_ignore = {
 
 " MacVim / GUI Vim
 set guifont=Bitstream\ Vera\ Sans\ Mono:h12
+
+" Snippets
+let g:snipMate = {}
+let g:snipMate.scope_aliases = {}
+let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
