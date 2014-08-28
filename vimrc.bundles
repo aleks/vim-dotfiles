@@ -24,6 +24,7 @@ Plugin 'vim-scripts/ctags.vim'
 Plugin 'vim-scripts/tComment'
 Plugin 'Lokaltog/vim-powerline'
 Plugin 'scrooloose/nerdtree'
+Plugin 'mileszs/ack.vim'
 
 " Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
