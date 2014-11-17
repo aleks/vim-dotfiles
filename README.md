@@ -2,9 +2,13 @@
 
 ## Requirements
 
-You need to install [Vundle](https://github.com/gmarik/Vundle.vim).
+You need to clone [Vundle](https://github.com/gmarik/Vundle.vim) to your home directory (just clone it, no .vimrc file needed):
 
-## Dotfile Installation
+```
+git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+```
+
+## Run Dotfile Installation
 
 ```
 git clone https://github.com/aleks/vim-dotfiles-2014.git
