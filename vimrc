@@ -89,11 +89,6 @@ let g:snippetsEmu_key = "<S-Tab>"
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
-" vim-rspec mappings
-nnoremap <Leader>tt :call RunCurrentSpecFile()<CR>
-nnoremap <Leader>ss :call RunNearestSpec()<CR>
-nnoremap <Leader>ll :call RunLastSpec()<CR>
-
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
