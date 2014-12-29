@@ -135,13 +135,16 @@ set guifont=Mensch\ for\ Powerline:h15
 set laststatus=2
 let g:Powerline_symbols = 'fancy'
 
+" Toggle Paste
+set pastetoggle=<F10>
+
+" Toggle Number/NoNumber
+nnoremap <F11> :set nonumber!<CR>
+
 " NERDTree
 let g:NERDTreeWinSize = 40
 let NERDTreeDirArrows = 1
 map <F12> :NERDTreeToggle<CR>
-
-" Toggle Number/NoNumber
-nnoremap <F11> :set nonumber!<CR>
 
 " Sane Ignore For ctrlp
 let g:ctrlp_map = ',t'
