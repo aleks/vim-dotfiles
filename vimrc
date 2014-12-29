@@ -86,12 +86,6 @@ set numberwidth=4
 " Snippets are activated by Shift+Tab
 let g:snippetsEmu_key = "<S-Tab>"
 
-" Exclude Javascript files in :Rtags via rails.vim due to warnings when parsing
-let g:Tlist_Ctags_Cmd="ctags --exclude='*.js'"
-
-" Index ctags from any project, including those outside Rails
-map <Leader>ct :!ctags -R .<CR>
-
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
@@ -145,6 +139,9 @@ nnoremap <F11> :set nonumber!<CR>
 let g:NERDTreeWinSize = 40
 let NERDTreeDirArrows = 1
 map <F12> :NERDTreeToggle<CR>
+
+" Map Dash.app Search to F9
+map <F9> :Dash<CR>
 
 " Sane Ignore For ctrlp
 let g:ctrlp_map = ',t'
