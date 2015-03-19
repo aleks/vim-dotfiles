@@ -25,6 +25,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'mileszs/ack.vim'
 Plugin 'rizzatti/dash.vim' " Mac-only: Dash integration
 Plugin 'slim-template/vim-slim'
+Plugin 'wesQ3/vim-windowswap'
 
 " Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'

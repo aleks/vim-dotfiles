@@ -1,5 +1,7 @@
 " Leader
 let mapleader = ","
+
+" Show register
 map ; :reg<CR>
 
 set backspace=2   " Backspace deletes like most programs in insert mode
@@ -57,6 +59,10 @@ nnoremap <C-j> <C-w>-
 nnoremap <C-l> <C-w><
 nnoremap <C-h> <C-w>>
 
+" Moving splits (with vim-windowswap)
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <C-w>m :call WindowSwap#EasyWindowSwap()<CR>
+
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_check_on_open=1
 
@@ -68,11 +74,11 @@ set guifont=Mensch\ for\ Powerline:h15
 set laststatus=2
 let g:Powerline_symbols = 'fancy'
 
-" Map Dash.app Search to F9
-map <F9> :Dash<CR>
-
 " Toggle Paste
-set pastetoggle=<F10>
+set pastetoggle=<F9>
+
+" Map Dash.app Search to F9
+map <F10> :Dash<CR>
 
 " Toggle Number/NoNumber
 nnoremap <F11> :set nonumber!<CR>
