@@ -1,4 +1,4 @@
-# Vim Dotfiles 2014
+# Vim Dotfiles
 
 ## Requirements
 
