@@ -27,6 +27,8 @@ Plugin 'rizzatti/dash.vim' " Mac-only: Dash integration
 Plugin 'slim-template/vim-slim'
 Plugin 'wesQ3/vim-windowswap'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 
 " Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
