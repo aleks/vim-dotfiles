@@ -29,6 +29,8 @@ Plugin 'wesQ3/vim-windowswap'
 Plugin 'thoughtbot/vim-rspec'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'csexton/jekyll.vim'
 
 " Snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -36,6 +38,7 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'asux/vim-capybara'
+Plugin 'jiangmiao/auto-pairs'
 
 call vundle#end()
 filetype plugin indent on
