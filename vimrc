@@ -69,10 +69,34 @@ let g:syntastic_check_on_open=1
 "Clear current search highlight by double tapping //
 nmap <silent> // :nohlsearch<CR>
 
-" Powerline
-set guifont=Mensch\ for\ Powerline:h15
+" Always display the status line, even if only one window is displayed"
 set laststatus=2
-let g:Powerline_symbols = 'fancy'
+
+" Powerline
+" set guifont=Mensch\ for\ Powerline\ h15
+" let g:Powerline_symbols = 'fancy'
+
+" Airline
+set guifont=Liberation\ Mono\ for\ Powerline\ 10
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = '⭠'
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
 
 " Toggle Paste
 set pastetoggle=<F9>
@@ -114,3 +138,6 @@ map <Leader>a :call RunAllSpecs()<CR>
 
 " JsBeautifier
 map <c-f> :call JsBeautify()<cr>
+
+" Jekyll.vim
+let g:jekyll_path = "~/Documents/Apps/need_computer"
