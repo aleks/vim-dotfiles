@@ -77,7 +77,6 @@ set laststatus=2
 " let g:Powerline_symbols = 'fancy'
 
 " Airline
-set guifont=Liberation\ Mono\ for\ Powerline\ 10
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -121,9 +120,6 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
   \ 'file': '\.exe$\|\.so$\|\.dat$'
   \ }
-
-" MacVim / GUI Vim
-set guifont=Bitstream\ Vera\ Sans\ Mono:h12
 
 " Snippets
 let g:snipMate = {}
