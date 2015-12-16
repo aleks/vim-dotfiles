@@ -16,4 +16,7 @@ ln -s vim-dotfiles/vimrc .vimrc
 ln -s vim-dotfiles/vimrc.bundles .vimrc.bundles
 ```
 
+## Overwrite settings
+If you want to overwrite certain settings in .vimrc but want to be able to pull from this repository in the future, add a file called ```vimrc_local``` inside the cloned respository folder (```vim-dotfiles```).
+
 Start ```vim```, run ```:PluginInstall```. done!
