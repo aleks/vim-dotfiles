@@ -134,6 +134,3 @@ map <Leader>a :call RunAllSpecs()<CR>
 
 " JsBeautifier
 map <c-f> :call JsBeautify()<cr>
-
-" Jekyll.vim
-let g:jekyll_path = "~/Documents/Apps/need_computer"
