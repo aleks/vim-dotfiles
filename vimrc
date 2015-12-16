@@ -134,3 +134,7 @@ map <Leader>a :call RunAllSpecs()<CR>
 
 " JsBeautifier
 map <c-f> :call JsBeautify()<cr>
+
+if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
+  source ~/vim-dotfiles/vimrc_local
+endif
