@@ -6,7 +6,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 " Interface
 Plug 'bling/vim-airline'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
 Plug 'nathanaelkane/vim-indent-guides'
 
@@ -17,9 +17,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/tComment'
 
 " App Integration
-Plug 'tpope/vim-fugitive' " Git
+Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
-Plug 'rizzatti/dash.vim'  " Mac-only: Dash (Documentation App) integration
+Plug 'rizzatti/dash.vim'  " Mac only!
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
@@ -27,21 +27,17 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-endwise'
 Plug 'thoughtbot/vim-rspec'
 Plug 'slim-template/vim-slim'
-Plug 'csexton/jekyll.vim'
-Plug 'asux/vim-capybara' " capybara snippets
+Plug 'asux/vim-capybara'
 
-" JavaScript
-Plug 'maksimr/vim-jsbeautify'
-Plug 'einars/js-beautify'
+" Jekyll
+Plug 'csexton/jekyll.vim'
 
 " Syntax
 Plug 'scrooloose/syntastic'
-Plug 'kchmck/vim-coffee-script'
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  }
 
 " Snippets
-Plug 'MarcWeber/vim-addon-mw-utils' " required by garbas/vim-snipmate
-Plug 'tomtom/tlib_vim'              " required by garbas/vim-snipmate
-Plug 'garbas/vim-snipmate'
+Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 call plug#end()
@@ -96,6 +92,12 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
+
+" Resize splits
+nnoremap <C-k> <C-w>+
+nnoremap <C-j> <C-w>-
+nnoremap <C-l> <C-w><
+nnoremap <C-h> <C-w>>
 
 " Switch between the last two files inside a buffer
 nnoremap <leader><leader> <c-^>
