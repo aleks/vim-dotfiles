@@ -2,21 +2,17 @@
 
 ## Requirements
 
-You need to clone [Vundle](https://github.com/gmarik/Vundle.vim) to your home directory (just clone it, no .vimrc file needed):
+I use [vim-plugin](https://github.com/junegunn/vim-plug) to handle my plugins. You just need to clone this repository, add symlinks and run ```:PlugInstall```. No need to install extra plugin managers.
+
+## Dotfile Installation
 
 ```
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-```
-
-## Run Dotfile Installation
-
-```
-git clone https://github.com/aleks/vim-dotfiles.git
+git clone https://github.com/aleks/vim-dotfiles.git vim-dotfiles
 ln -s vim-dotfiles/vimrc .vimrc
-ln -s vim-dotfiles/vimrc.bundles .vimrc.bundles
+ln -s vim-dotfiles/vim .vim
 ```
 
-Start ```vim```, run ```:PluginInstall```. done!
+Start ```vim```, run ```:PlugInstall```. done!
 
 
 ## Overwrite settings
