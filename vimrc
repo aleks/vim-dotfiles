@@ -1,3 +1,53 @@
+" Plugins
+call plug#begin('~/.vim/plugged')
+
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
+
+" Interface
+Plug 'bling/vim-airline'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'wesQ3/vim-windowswap'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Tools
+Plug 'danro/rename.vim'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-scripts/tComment'
+
+" App Integration
+Plug 'tpope/vim-fugitive' " Git
+Plug 'mileszs/ack.vim'
+Plug 'rizzatti/dash.vim'  " Mac-only: Dash (Documentation App) integration
+
+" Ruby / Rails
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
+Plug 'thoughtbot/vim-rspec'
+Plug 'slim-template/vim-slim'
+Plug 'csexton/jekyll.vim'
+Plug 'asux/vim-capybara' " capybara snippets
+
+" JavaScript
+Plug 'maksimr/vim-jsbeautify'
+Plug 'einars/js-beautify'
+
+" Syntax
+Plug 'scrooloose/syntastic'
+Plug 'kchmck/vim-coffee-script'
+
+" Snippets
+Plug 'MarcWeber/vim-addon-mw-utils' " required by garbas/vim-snipmate
+Plug 'tomtom/tlib_vim'              " required by garbas/vim-snipmate
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+
+call plug#end()
+" Plugins end
+
+
 " Leader
 let mapleader = ","
 
@@ -31,10 +81,6 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
 
-" Vundle
-if filereadable(expand("~/.vimrc.bundles"))
-  source ~/.vimrc.bundles
-endif
 filetype plugin indent on
 
 " Color scheme
