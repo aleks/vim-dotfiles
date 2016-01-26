@@ -15,6 +15,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/tComment'
+Plug 'junegunn/vim-easy-align'
 
 " App Integration
 Plug 'tpope/vim-fugitive'
