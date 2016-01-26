@@ -11,7 +11,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'nathanaelkane/vim-indent-guides'
 
 " Tools
-Plug 'danro/rename.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/tComment'
