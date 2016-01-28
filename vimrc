@@ -9,6 +9,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'easymotion/vim-easymotion'
 
 " Tools
 Plug 'tpope/vim-eunuch'
@@ -47,6 +48,17 @@ call plug#end()
 
 " Leader
 let mapleader = ","
+
+" EasyMotion
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
 
 " Show register
 map ; :reg<CR>
@@ -123,7 +135,7 @@ map <F12> :NERDTreeToggle<CR>
 
 " Sane Ignore For ctrlp
 let g:ctrlp_map = ',t'
-let g:ctrlp_working_path_mode = 'rc'
+let g:ctrlp_working_path_mode = 'ra'
 nnoremap ,b :CtrlPBuffer<cr>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
