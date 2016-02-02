@@ -37,6 +37,7 @@ Plug 'asux/vim-capybara'
 
 " Jekyll
 Plug 'csexton/jekyll.vim'
+Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
 " Syntax
 Plug 'scrooloose/syntastic'
@@ -87,7 +88,13 @@ set shiftwidth=2
 set expandtab
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
+
+" Function Keys
 set pastetoggle=<F9>              " Toggle paste mode with F9
+map <F10> :Dash<CR>               " Map Dash.app Search to F9
+nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
+map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
+map <F7> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
 
 " Switch syntax highlighting on, when the terminal has colors
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -126,16 +133,9 @@ nnoremap <C-w>m :call WindowSwap#EasyWindowSwap()<CR>
 "Clear current search highlight by double tapping //
 nmap <silent> // :nohlsearch<CR>
 
-" Map Dash.app Search to F9
-map <F10> :Dash<CR>
-
-" Toggle Number/NoNumber
-nnoremap <F11> :set nonumber!<CR>
-
 " NERDTree
 let g:NERDTreeWinSize = 40
 let NERDTreeDirArrows = 1
-map <F12> :NERDTreeToggle<CR>
 
 " FZF / fzf.vim
 nmap <Leader>t :FZF<CR>
