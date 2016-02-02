@@ -5,11 +5,15 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 
 " Interface
 Plug 'bling/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'easymotion/vim-easymotion'
+
+" Fuzzy Finders
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+Plug 'junegunn/fzf.vim'
 
 " Tools
 Plug 'tpope/vim-eunuch'
@@ -113,7 +117,7 @@ nnoremap <C-l> <C-w><
 nnoremap <C-h> <C-w>>
 
 " Switch between the last two files inside a buffer
-nnoremap <leader><leader> <c-^>
+" nnoremap <leader><leader> <c-^>
 
 " Moving splits (with vim-windowswap)
 let g:windowswap_map_keys = 0 "prevent default bindings
@@ -133,10 +137,13 @@ let g:NERDTreeWinSize = 40
 let NERDTreeDirArrows = 1
 map <F12> :NERDTreeToggle<CR>
 
-" Sane Ignore For ctrlp
-let g:ctrlp_map = ',t'
+" FZF / fzf.vim
+nmap <Leader>t :FZF<CR>
+nnoremap <silent> <Leader><Enter> :Buffers<CR>
+
+" Ctrlp
+let g:ctrlp_map = ',p'
 let g:ctrlp_working_path_mode = 'ra'
-nnoremap ,b :CtrlPBuffer<cr>
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
