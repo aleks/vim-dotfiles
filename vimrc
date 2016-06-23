@@ -189,6 +189,9 @@ let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
 
+" Make ctrl-n autocompletion scrollable with j/k
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
