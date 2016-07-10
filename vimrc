@@ -197,3 +197,6 @@ inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
   source ~/vim-dotfiles/vimrc_local
 endif
+
+" binding.pry
+nnoremap <Leader>pry ibinding.pry
