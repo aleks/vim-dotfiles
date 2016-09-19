@@ -21,6 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/tComment'
 Plug 'junegunn/vim-easy-align'
+Plug 'ervandew/supertab'
 
 " App Integration
 Plug 'tpope/vim-fugitive'
