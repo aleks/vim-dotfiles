@@ -25,14 +25,12 @@ Plug 'junegunn/vim-easy-align'
 Plug 'ervandew/supertab'
 
 " App Integration
-Plug 'tpope/vim-fugitive'
 Plug 'mileszs/ack.vim'
 Plug 'rizzatti/dash.vim'  " Mac only!
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-endwise'
 Plug 'thoughtbot/vim-rspec'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
