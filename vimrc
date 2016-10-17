@@ -198,3 +198,8 @@ endif
 
 " binding.pry
 nnoremap <Leader>pry ibinding.pry
+
+" Ruby hash syntax conversion
+" convert :hello => :world
+" to hello: :world
+nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return>
