@@ -153,6 +153,11 @@ nmap <silent> <leader>c :TestNearest<CR>
 nmap <silent> <leader>C :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 
+" Buffer switching
+map <leader>p :bp<CR> " previous buffer
+map <leader>n :bn<CR> " next buffer
+map <leader>d :bd<CR> " delete buffer
+
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
