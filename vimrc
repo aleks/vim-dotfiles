@@ -123,9 +123,6 @@ nnoremap <C-j> <C-w>-
 nnoremap <C-l> <C-w><
 nnoremap <C-h> <C-w>>
 
-" Switch between the last two files inside a buffer
-" nnoremap <leader><leader> <c-^>
-
 " Moving splits (with vim-windowswap)
 let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <C-w>m :call WindowSwap#EasyWindowSwap()<CR>
