@@ -12,9 +12,9 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'easymotion/vim-easymotion'
 
 " Fuzzy Finders
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
+" Plug 'ctrlpvim/ctrlp.vim' " Alternative!
 
 " Tools
 Plug 'tpope/vim-eunuch'
@@ -138,14 +138,15 @@ let NERDTreeDirArrows = 1
 nmap <Leader>t :FZF<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 
+" Alternative to FZF:
 " Ctrlp
-let g:ctrlp_map = ',p'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
-  \ 'file': '\.exe$\|\.so$\|\.dat$'
-  \ }
+" let g:ctrlp_map = ',p'
+" let g:ctrlp_working_path_mode = 'ra'
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+" let g:ctrlp_custom_ignore = {
+"   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
+"   \ 'file': '\.exe$\|\.so$\|\.dat$'
+"   \ }
 
 " vim-test mappings
 nmap <silent> <leader>c :TestNearest<CR>
