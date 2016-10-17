@@ -31,7 +31,7 @@ Plug 'rizzatti/dash.vim'  " Mac only!
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
-Plug 'thoughtbot/vim-rspec'
+Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
 
@@ -150,12 +150,10 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.exe$\|\.so$\|\.dat$'
   \ }
 
-" RSpec.vim mappings
-let g:rspec_command = "!bundle exec rspec -f d -c {spec}"
-map <Leader>c :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+" vim-test mappings
+nmap <silent> <leader>c :TestNearest<CR>
+nmap <silent> <leader>C :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
