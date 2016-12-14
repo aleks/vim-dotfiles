@@ -203,3 +203,8 @@ nnoremap <Leader>pry ibinding.pry
 " convert :hello => :world
 " to hello: :world
 nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return>
+
+" Use ag (the_silver_searcher) when available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
