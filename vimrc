@@ -8,7 +8,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'easymotion/vim-easymotion'
 
 " Fuzzy Finders
@@ -21,12 +20,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-Plug 'junegunn/vim-easy-align'
 Plug 'ervandew/supertab'
-
-" App Integration
-Plug 'mileszs/ack.vim'
-Plug 'rizzatti/dash.vim'  " Mac only!
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
@@ -36,7 +30,6 @@ Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
 
 " Jekyll
-Plug 'csexton/jekyll.vim'
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
 " Syntax
@@ -49,7 +42,6 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 " Plugins end
-
 
 " Leader
 let mapleader = ","
@@ -91,7 +83,6 @@ set laststatus=2                  " Always display the status line, even if only
 
 " Function Keys
 set pastetoggle=<F9>              " Toggle paste mode with F9
-map <F10> :Dash<CR>               " Map Dash.app Search to F9
 nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
 map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
 map <F7> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
@@ -106,10 +97,6 @@ filetype plugin indent on
 " Color scheme
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
-
-
-" Show register
-map ; :reg<CR>
 
 " Quick window resizing
 nnoremap <C-j> <C-w>j
@@ -137,16 +124,6 @@ let NERDTreeDirArrows = 1
 " FZF / fzf.vim
 nmap <Leader>t :FZF<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
-
-" Alternative to FZF:
-" Ctrlp
-" let g:ctrlp_map = ',p'
-" let g:ctrlp_working_path_mode = 'ra'
-" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-" let g:ctrlp_custom_ignore = {
-"   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
-"   \ 'file': '\.exe$\|\.so$\|\.dat$'
-"   \ }
 
 " vim-test mappings
 nmap <silent> <leader>c :TestNearest<CR>
