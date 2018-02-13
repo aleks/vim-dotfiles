@@ -29,8 +29,11 @@ Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
 
-" Jekyll
+" Blogging
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 " Syntax
 Plug 'scrooloose/syntastic'
@@ -158,6 +161,7 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_theme='solarized'
 
 " Snippets
 let g:snipMate = {}
