@@ -29,6 +29,9 @@ Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
 
+" Crystal
+Plug 'rhysd/vim-crystal'
+
 " Blogging
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
