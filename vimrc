@@ -32,6 +32,9 @@ Plug 'asux/vim-capybara'
 " Crystal
 Plug 'rhysd/vim-crystal'
 
+" Vue.js
+Plug 'posva/vim-vue'
+
 " Blogging
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
