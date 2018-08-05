@@ -32,6 +32,9 @@ Plug 'asux/vim-capybara'
 " Crystal
 Plug 'rhysd/vim-crystal'
 
+" Vue
+Plug 'posva/vim-vue'
+
 " Blogging
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
@@ -126,6 +129,7 @@ nmap <silent> // :nohlsearch<CR>
 " NERDTree
 let g:NERDTreeWinSize = 40
 let NERDTreeDirArrows = 1
+let NERDTreeShowHidden = 1
 
 " FZF / fzf.vim
 nmap <Leader>t :FZF<CR>
