@@ -1,8 +1,6 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
-
 " Interface
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -51,6 +49,9 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 " Plugins end
+
+" Encoding
+set encoding=utf-8
 
 " Leader
 let mapleader = ","
