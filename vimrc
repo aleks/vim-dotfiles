@@ -26,6 +26,7 @@ Plug 'tpope/vim-rails'
 Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
+Plug 'thoughtbot/vim-rspec'
 
 " Crystal
 Plug 'rhysd/vim-crystal'
@@ -182,3 +183,7 @@ nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return>
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" RSpec.vim mappings
+map <Leader>r :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
