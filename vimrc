@@ -8,10 +8,10 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
 Plug 'easymotion/vim-easymotion'
 
-" Fuzzy Finders
+" Fuzzy Finders and Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
-" Plug 'ctrlpvim/ctrlp.vim' " Alternative!
+Plug 'jremmen/vim-ripgrep'
 
 " Tools
 Plug 'tpope/vim-eunuch'
@@ -31,8 +31,11 @@ Plug 'thoughtbot/vim-rspec'
 " Crystal
 Plug 'rhysd/vim-crystal'
 
-" Vue
-Plug 'posva/vim-vue'
+" TypeScript
+Plug 'leafgarland/typescript-vim'
+
+" Elm
+Plug 'ElmCast/elm-vim'
 
 " Blogging
 Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
@@ -97,6 +100,7 @@ set pastetoggle=<F9>              " Toggle paste mode with F9
 nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
 map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
 map <F7> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
+nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return> " Convert ruby hash syntax
 
 " Switch syntax highlighting on, when the terminal has colors
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -171,19 +175,9 @@ if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
   source ~/vim-dotfiles/vimrc_local
 endif
 
-" binding.pry
-nnoremap <Leader>pry ibinding.pry
-
-" Ruby hash syntax conversion
-" convert :hello => :world
-" to hello: :world
-nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return>
-
-" Use ag (the_silver_searcher) when available
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 " RSpec.vim mappings
 map <Leader>r :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
+
+" Elm Settings
+let g:elm_setup_keybindings = 0
