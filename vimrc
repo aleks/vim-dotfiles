@@ -19,6 +19,8 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'ervandew/supertab'
+Plug 'jremmen/vim-ripgrep'
+Plug 'misterbuckley/vim-definitive'
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
@@ -149,7 +151,6 @@ nmap <silent> <leader>a :TestSuite<CR>
 " Buffer switching
 map <leader>p :bp<CR> " previous buffer
 map <leader>n :bn<CR> " next buffer
-map <leader>d :bd<CR> " delete buffer
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -176,8 +177,13 @@ if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
 endif
 
 " RSpec.vim mappings
+let g:rspec_runner = "os_x_iterm"
+let g:rspec_command = "!bundle exec rspec {spec}"
 map <Leader>r :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 
 " Elm Settings
 let g:elm_setup_keybindings = 0
+
+" Vim Definitive
+nnoremap <Leader>d :FindDefinition<CR>
