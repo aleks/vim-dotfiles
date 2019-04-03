@@ -21,6 +21,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'ervandew/supertab'
 Plug 'jremmen/vim-ripgrep'
 Plug 'misterbuckley/vim-definitive'
+Plug 'majutsushi/tagbar'
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
@@ -98,11 +99,12 @@ set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
 
 " Function Keys
-set pastetoggle=<F9>              " Toggle paste mode with F9
-nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
 map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
-map <F7> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
-nnoremap <F6> :%s/:\([^ ]*\)\(\s*\)=>/\1:/g<return> " Convert ruby hash syntax
+nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
+nmap <F10> :TagbarToggle<CR>
+set pastetoggle=<F9>              " Toggle paste mode with F9
+map <F8> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
+
 
 " Switch syntax highlighting on, when the terminal has colors
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
