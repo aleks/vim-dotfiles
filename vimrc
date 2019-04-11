@@ -189,3 +189,4 @@ let g:elm_setup_keybindings = 0
 
 " Vim Definitive
 nnoremap <Leader>d :FindDefinition<CR>
+nnoremap <Leader>rg :Rg<CR>
