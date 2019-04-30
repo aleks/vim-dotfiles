@@ -19,7 +19,6 @@ Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
 Plug 'ervandew/supertab'
-Plug 'jremmen/vim-ripgrep'
 Plug 'misterbuckley/vim-definitive'
 Plug 'majutsushi/tagbar'
 
@@ -30,6 +29,7 @@ Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
 Plug 'thoughtbot/vim-rspec'
+Plug 'ngmy/vim-rubocop'
 
 " Crystal
 Plug 'rhysd/vim-crystal'
@@ -144,6 +144,10 @@ let NERDTreeShowHidden = 1
 " FZF / fzf.vim
 nmap <Leader>t :FZF<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
+nnoremap <Leader>rg :Rg<CR>
+nnoremap <Leader>h :History<CR>
+nnoremap <Leader>g :Commits<CR>
+
 
 " vim-test mappings
 nmap <silent> <leader>c :TestNearest<CR>
@@ -189,4 +193,6 @@ let g:elm_setup_keybindings = 0
 
 " Vim Definitive
 nnoremap <Leader>d :FindDefinition<CR>
-nnoremap <Leader>rg :Rg<CR>
+
+" Vim Rubocop
+nnoremap <Leader>rc :RuboCop<CR>
