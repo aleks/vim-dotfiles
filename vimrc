@@ -6,7 +6,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
 Plug 'wesQ3/vim-windowswap'
-Plug 'easymotion/vim-easymotion'
 
 " Fuzzy Finders and Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
@@ -21,6 +20,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'ervandew/supertab'
 Plug 'misterbuckley/vim-definitive'
 Plug 'majutsushi/tagbar'
+Plug 'editorconfig/editorconfig-vim'
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
