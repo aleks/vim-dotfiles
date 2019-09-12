@@ -17,10 +17,11 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-Plug 'ervandew/supertab'
+" Plug 'ervandew/supertab'
 Plug 'misterbuckley/vim-definitive'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Ruby / Rails
 Plug 'tpope/vim-bundler'
@@ -174,8 +175,8 @@ let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
 
 " Make ctrl-n autocompletion scrollable with j/k
-inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
@@ -194,5 +195,38 @@ let g:elm_setup_keybindings = 0
 " Vim Definitive
 nnoremap <Leader>d :FindDefinition<CR>
 
+" Go to definition in a new window
+nnoremap <silent><C-]> <C-w><C-]><C-w>T
+
 " Vim Rubocop
 nnoremap <Leader>rc :RuboCop<CR>
+
+" CoC.nvim
+" if hidden is not set, TextEdit might fail.
+set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
+" Better display for messages
+set cmdheight=2
+
+" You will have bad experience for diagnostic messages when it's default 4000.
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction<Paste>
