@@ -17,39 +17,29 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tomtom/tcomment_vim'
-" Plug 'ervandew/supertab'
 Plug 'misterbuckley/vim-definitive'
 Plug 'majutsushi/tagbar'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'janko-m/vim-test'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Install additional coc extensions:
+" :CocInstall coc-solargraph
+" :CocInstall coc-snippets
 
 " Ruby / Rails
-Plug 'tpope/vim-bundler'
 Plug 'tpope/vim-rails'
-Plug 'janko-m/vim-test'
 Plug 'slim-template/vim-slim'
 Plug 'asux/vim-capybara'
-Plug 'thoughtbot/vim-rspec'
 Plug 'ngmy/vim-rubocop'
-
-" Crystal
-Plug 'rhysd/vim-crystal'
-
-" TypeScript
-Plug 'leafgarland/typescript-vim'
-
-" Elm
-Plug 'ElmCast/elm-vim'
-
-" Blogging
-Plug 'junegunn/goyo.vim' " Distraction-free writing in Vim.
 
 " Git
 Plug 'tpope/vim-fugitive'
 
 " Syntax
-Plug 'scrooloose/syntastic'
+" Plug 'dense-analysis/ale'
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  }
+Plug 'leafgarland/typescript-vim'
+Plug 'ElmCast/elm-vim'
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
@@ -79,6 +69,7 @@ nmap s <Plug>(easymotion-overwin-f2)
 map ; :reg<CR>
 
 " Settings
+syntax on
 set backspace=2                   " Backspace deletes like most programs in insert mode
 set nocompatible                  " Use Vim settings, rather then Vi settings
 set nobackup
@@ -104,13 +95,6 @@ map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
 nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
 nmap <F10> :TagbarToggle<CR>
 set pastetoggle=<F9>              " Toggle paste mode with F9
-map <F8> :Goyo<CR>                " Toggle Goyo (distraction-free writing)
-
-
-" Switch syntax highlighting on, when the terminal has colors
-if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
-  syntax on
-endif
 
 filetype plugin indent on
 
@@ -149,25 +133,18 @@ nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>g :Commits<CR>
 
-
 " vim-test mappings
+nmap <silent> <leader>r ::TestFile<CR>
 nmap <silent> <leader>c :TestNearest<CR>
-nmap <silent> <leader>C :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-
-" Buffer switching
-map <leader>p :bp<CR> " previous buffer
-map <leader>n :bn<CR> " next buffer
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
-" Configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-
 " Airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='solarized'
+let g:airline_theme='angr'
+let g:airline_skip_empty_sections = 1
+let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 
 " Snippets
 let g:snipMate = {}
@@ -184,10 +161,10 @@ if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
 endif
 
 " RSpec.vim mappings
-let g:rspec_runner = "os_x_iterm"
-let g:rspec_command = "!bundle exec rspec {spec}"
-map <Leader>r :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
+" let g:rspec_runner = "os_x_iterm"
+" let g:rspec_command = "!bundle exec rspec {spec}"
+" map <Leader>r :call RunCurrentSpecFile()<CR>
+" map <Leader>s :call RunNearestSpec()<CR>
 
 " Elm Settings
 let g:elm_setup_keybindings = 0
@@ -209,24 +186,14 @@ set hidden
 set nobackup
 set nowritebackup
 
-" Better display for messages
-set cmdheight=2
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction<Paste>
+" ale.vim
+" let g:ale_open_list = 1
+" lint only on save
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_insert_leave = 0
