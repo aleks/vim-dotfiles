@@ -36,14 +36,16 @@ Plug 'ngmy/vim-rubocop'
 Plug 'tpope/vim-fugitive'
 
 " Syntax
-" Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale' " nice linter, but can slow down vim
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  }
 Plug 'leafgarland/typescript-vim'
 Plug 'ElmCast/elm-vim'
+Plug 'maksimr/vim-jsbeautify' " needs js-beautify: npm -g install js-beautify
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+
 
 call plug#end()
 " Plugins end
@@ -53,17 +55,6 @@ set encoding=utf-8
 
 " Leader
 let mapleader = ","
-
-" EasyMotion
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
 
 " Show register
 map ; :reg<CR>
@@ -118,11 +109,15 @@ nnoremap <C-h> <C-w>>
 let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <C-w>m :call WindowSwap#EasyWindowSwap()<CR>
 
+" Open vsplit with command
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>vs :vsplit<CR>
+
 "Clear current search highlight by double tapping //
 nmap <silent> // :nohlsearch<CR>
 
 " NERDTree
-let g:NERDTreeWinSize = 40
+let g:NERDTreeWinSize = 35
 let NERDTreeDirArrows = 1
 let NERDTreeShowHidden = 1
 
@@ -160,12 +155,6 @@ if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
   source ~/vim-dotfiles/vimrc_local
 endif
 
-" RSpec.vim mappings
-" let g:rspec_runner = "os_x_iterm"
-" let g:rspec_command = "!bundle exec rspec {spec}"
-" map <Leader>r :call RunCurrentSpecFile()<CR>
-" map <Leader>s :call RunNearestSpec()<CR>
-
 " Elm Settings
 let g:elm_setup_keybindings = 0
 
@@ -190,10 +179,13 @@ set nowritebackup
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
-set shortmess+=c
+" set shortmess+=c
 
 " ale.vim
 " let g:ale_open_list = 1
 " lint only on save
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_insert_leave = 0
+
+" JsBeautify
+map <c-f> :call JsBeautify()<cr>
