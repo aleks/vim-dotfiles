@@ -2,10 +2,11 @@
 call plug#begin('~/.vim/plugged')
 
 " Interface
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  }
-Plug 'wesQ3/vim-windowswap'
+Plug 'vim-airline/vim-airline' " status line
+Plug 'vim-airline/vim-airline-themes' " status line themes
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
+Plug 'wesQ3/vim-windowswap' " swap splits around
+Plug 'junegunn/vim-peekaboo' " register preview
 
 " Fuzzy Finders and Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
@@ -13,34 +14,34 @@ Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 
 " Tools
-Plug 'tpope/vim-eunuch'
-Plug 'tpope/vim-surround'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tomtom/tcomment_vim'
-Plug 'misterbuckley/vim-definitive'
-Plug 'majutsushi/tagbar'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'janko-m/vim-test'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
+Plug 'tpope/vim-surround' " makes it easy to switch sourroundings like 'hello' to double quotes
+Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair
+Plug 'tomtom/tcomment_vim' " better comment creation, i.e. with <ctrl-_>
+Plug 'misterbuckley/vim-definitive' " jump to definitions
+Plug 'majutsushi/tagbar' " sidebar to show ctags data
+Plug 'editorconfig/editorconfig-vim' " use .editorconfig
+Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
 " Install additional coc extensions:
 " :CocInstall coc-solargraph
 " :CocInstall coc-snippets
+Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
 
 " Ruby / Rails
-Plug 'tpope/vim-rails'
-Plug 'slim-template/vim-slim'
-Plug 'asux/vim-capybara'
-Plug 'ngmy/vim-rubocop'
+Plug 'tpope/vim-rails' " adds a bunch of rails helpers
+Plug 'slim-template/vim-slim' " support for slim templates
+Plug 'asux/vim-capybara' " support for capybara
+Plug 'ngmy/vim-rubocop' " support for rubocop
 
 " Git
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
 " Syntax
 " Plug 'dense-analysis/ale' " nice linter, but can slow down vim
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  }
-Plug 'leafgarland/typescript-vim'
-Plug 'ElmCast/elm-vim'
-Plug 'maksimr/vim-jsbeautify' " needs js-beautify: npm -g install js-beautify
+Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
+Plug 'leafgarland/typescript-vim' " typescript syntax
+Plug 'ElmCast/elm-vim' " elm syntax
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
@@ -122,11 +123,25 @@ let NERDTreeDirArrows = 1
 let NERDTreeShowHidden = 1
 
 " FZF / fzf.vim
+let g:fzf_tags_command = 'ctags -R'
 nmap <Leader>t :FZF<CR>
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>g :Commits<CR>
+" Use ripgrep instead of ag
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Add autocompletion for dictionary words
+inoremap <expr> <c-x><c-s> fzf#vim#complete({
+  \ 'source':  'cat /usr/share/dict/words',
+  \ 'options': '--multi --reverse --margin 15%,0',
+  \ 'left':    20})
 
 " vim-test mappings
 nmap <silent> <leader>r ::TestFile<CR>
@@ -189,3 +204,6 @@ set updatetime=300
 
 " JsBeautify
 map <c-f> :call JsBeautify()<cr>
+
+" Clipboard copy via shortcut
+vmap <Leader>cb "*y
