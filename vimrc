@@ -18,7 +18,6 @@ Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
 Plug 'tpope/vim-surround' " makes it easy to switch sourroundings like 'hello' to double quotes
 Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair
 Plug 'tomtom/tcomment_vim' " better comment creation, i.e. with <ctrl-_>
-Plug 'misterbuckley/vim-definitive' " jump to definitions
 Plug 'majutsushi/tagbar' " sidebar to show ctags data
 Plug 'editorconfig/editorconfig-vim' " use .editorconfig
 Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
@@ -38,7 +37,7 @@ Plug 'ngmy/vim-rubocop' " support for rubocop
 Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
 " Syntax
-" Plug 'dense-analysis/ale' " nice linter, but can slow down vim
+Plug 'dense-analysis/ale' " nice linter, but can slow down vim
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
 Plug 'leafgarland/typescript-vim' " typescript syntax
 Plug 'ElmCast/elm-vim' " elm syntax
@@ -146,6 +145,10 @@ inoremap <expr> <c-x><c-s> fzf#vim#complete({
 " vim-test mappings
 nmap <silent> <leader>r ::TestFile<CR>
 nmap <silent> <leader>c :TestNearest<CR>
+" Use C-o to switch to normal mode in terminal buffer
+if has('nvim')
+  tmap <C-o> <C-\><C-n>
+endif
 
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
@@ -173,11 +176,7 @@ endif
 " Elm Settings
 let g:elm_setup_keybindings = 0
 
-" Vim Definitive
-nnoremap <Leader>d :FindDefinition<CR>
 
-" Go to definition in a new window
-nnoremap <silent><C-]> <C-w><C-]><C-w>T
 
 " Vim Rubocop
 nnoremap <Leader>rc :RuboCop<CR>
@@ -185,22 +184,58 @@ nnoremap <Leader>rc :RuboCop<CR>
 " CoC.nvim
 " if hidden is not set, TextEdit might fail.
 set hidden
-
 " Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
-
 " You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
-
 " don't give |ins-completion-menu| messages.
-" set shortmess+=c
+set shortmess+=c
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <C-n> coc#refresh()
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" Use coc-definition with <Leader>d
+nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
 
-" ale.vim
-" let g:ale_open_list = 1
+" Go to definition in a new window
+nnoremap <silent><C-]> <C-w><C-]><C-w>T
+
+" Try jumpDefinition from coc, than <C-]> and then search in file
+function! s:GoToDefinition()
+  if CocAction('jumpDefinition', 'tab drop')
+    return v:true
+  endif
+
+  let ret = execute("silent! normal \<C-]>")
+  if ret[:5] =~ "Error"
+    call searchdecl(expand('<cword>'))
+  endif
+endfunction
+
+" Ale.vim
+let g:ale_open_list = 1 " open loclist on error
 " lint only on save
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_insert_leave = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 0
+" let g:ale_lint_on_enter = 0 " Don't lint files on open
+
+" Use only defined linters
+let g:ale_linters = {
+\  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb']
+\}
+let g:ale_linters_explicit = 1
+
 
 " JsBeautify
 map <c-f> :call JsBeautify()<cr>
