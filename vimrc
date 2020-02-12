@@ -12,6 +12,7 @@ Plug 'junegunn/vim-peekaboo' " register preview
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
+Plug 'yuki-ycino/fzf-preview.vim'
 
 " Tools
 Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
@@ -45,6 +46,7 @@ Plug 'ElmCast/elm-vim' " elm syntax
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go'
 
 
 call plug#end()
@@ -124,10 +126,9 @@ let NERDTreeShowHidden = 1
 " FZF / fzf.vim
 let g:fzf_tags_command = 'ctags -R'
 nmap <Leader>t :FZF<CR>
-nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
-nnoremap <Leader>g :Commits<CR>
+nnoremap <Leader>gl :Commits<CR>
 " Use ripgrep instead of ag
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -135,6 +136,10 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+" FZF-Preview
+nmap <Leader>b :FzfPreviewBuffers<CR>
+nmap <Leader>g :FzfPreviewGitStatus<CR>
 
 " Add autocompletion for dictionary words
 inoremap <expr> <c-x><c-s> fzf#vim#complete({
