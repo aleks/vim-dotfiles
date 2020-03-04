@@ -13,6 +13,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'dyng/ctrlsf.vim'
 
 " Tools
 Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
@@ -47,7 +48,6 @@ Plug 'ElmCast/elm-vim' " elm syntax
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go'
-
 
 call plug#end()
 " Plugins end
@@ -140,6 +140,8 @@ command! -bang -nargs=* Rg
 " FZF-Preview
 nmap <Leader>b :FzfPreviewBuffers<CR>
 nmap <Leader>g :FzfPreviewGitStatus<CR>
+nmap <Leader>j :FzfPreviewBufferTags<CR>
+nmap <Leader>o :FzfPreviewOldFiles<CR>
 
 " Add autocompletion for dictionary words
 inoremap <expr> <c-x><c-s> fzf#vim#complete({
@@ -247,3 +249,12 @@ map <c-f> :call JsBeautify()<cr>
 
 " Clipboard copy via shortcut
 vmap <Leader>cb "*y
+
+" Switch between tabs with Tab
+noremap <Tab> :tabn<CR>
+noremap <S-Tab> :tabp<CR>
+
+" ctrlsf.vim
+nmap <Leader>f <Plug>CtrlSFPrompt
+let g:ctrlsf_auto_close = { "normal" : 0, "compact": 0 }
+let g:ctrlsf_context = '-B 2 -A 2'
