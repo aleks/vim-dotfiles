@@ -258,3 +258,6 @@ noremap <S-Tab> :tabp<CR>
 nmap <Leader>f <Plug>CtrlSFPrompt
 let g:ctrlsf_auto_close = { "normal" : 0, "compact": 0 }
 let g:ctrlsf_context = '-B 2 -A 2'
+
+" vim-rubocop
+let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
