@@ -47,7 +47,6 @@ Plug 'ElmCast/elm-vim' " elm syntax
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-Plug 'fatih/vim-go'
 
 call plug#end()
 " Plugins end
