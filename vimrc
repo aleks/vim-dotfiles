@@ -124,7 +124,7 @@ let NERDTreeShowHidden = 1
 
 " FZF / fzf.vim
 let g:fzf_tags_command = 'ctags -R'
-nmap <Leader>t :FZF<CR>
+nmap <Leader>t :GFiles<CR>
 nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>gl :Commits<CR>
