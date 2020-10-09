@@ -42,7 +42,7 @@ Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 Plug 'dense-analysis/ale' " nice linter, but can slow down vim
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
 Plug 'leafgarland/typescript-vim' " typescript syntax
-Plug 'ElmCast/elm-vim' " elm syntax
+Plug 'elixir-editors/vim-elixir' " elixir syntax
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
@@ -213,6 +213,8 @@ inoremap <silent><expr> <C-n> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Use coc-definition with <Leader>d
 nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
+nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
+nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
 
 " Go to definition in a new window
 nnoremap <silent><C-]> <C-w><C-]><C-w>T
