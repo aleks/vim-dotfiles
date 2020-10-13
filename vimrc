@@ -48,6 +48,9 @@ Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
+" JavaScript
+Plug 'posva/vim-vue'
+
 call plug#end()
 " Plugins end
 
@@ -124,14 +127,15 @@ let NERDTreeShowHidden = 1
 
 " FZF / fzf.vim
 let g:fzf_tags_command = 'ctags -R'
-nmap <Leader>t :GFiles<CR>
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+nmap <Leader>t :FZF<CR>
 nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>gl :Commits<CR>
 " Use ripgrep instead of ag
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   'rg --column --line-number --no-heading --color=always --smart-case --files'.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
@@ -141,12 +145,6 @@ nmap <Leader>b :FzfPreviewBuffers<CR>
 nmap <Leader>g :FzfPreviewGitStatus<CR>
 nmap <Leader>j :FzfPreviewBufferTags<CR>
 nmap <Leader>o :FzfPreviewOldFiles<CR>
-
-" Add autocompletion for dictionary words
-inoremap <expr> <c-x><c-s> fzf#vim#complete({
-  \ 'source':  'cat /usr/share/dict/words',
-  \ 'options': '--multi --reverse --margin 15%,0',
-  \ 'left':    20})
 
 " vim-test mappings
 nmap <silent> <leader>r ::TestFile<CR>
@@ -240,7 +238,9 @@ let g:ale_lint_on_insert_leave = 0
 
 " Use only defined linters
 let g:ale_linters = {
-\  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb']
+\  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb'],
+\  'javascript': ['eslint', 'prettier'],
+\  'vue': ['eslint', 'prettier']
 \}
 let g:ale_linters_explicit = 1
 
