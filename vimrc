@@ -50,7 +50,7 @@ Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-
 Plug 'honza/vim-snippets'
 
 " JavaScript
-Plug 'posva/vim-vue'
+" Plug 'posva/vim-vue'
 
 call plug#end()
 " Plugins end
@@ -252,6 +252,8 @@ let g:ale_linters_explicit = 1 " only use linters from g:ale_linters
 " Use only defined linters
 let g:ale_linters = {
 \  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb'],
+\  'javascript': ['eslint', 'prettier'],
+\  'vue': ['eslint', 'prettier'],
 \}
 
 " JsBeautify
@@ -271,3 +273,8 @@ let g:ctrlsf_context = '-B 2 -A 2'
 
 " vim-rubocop
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
+
+" vue-language-server
+let g:LanguageClient_serverCommands = {
+\ 'vue': ['vls']
+\ }
