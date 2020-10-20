@@ -27,6 +27,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code co
 " Install additional coc extensions:
 " :CocInstall coc-solargraph
 " :CocInstall coc-snippets
+" :CocInstall coc-vetur
 Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
 
 " Ruby / Rails
@@ -141,10 +142,10 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 
 " FZF-Preview
-nmap <Leader>b :FzfPreviewBuffers<CR>
-nmap <Leader>g :FzfPreviewGitStatus<CR>
-nmap <Leader>j :FzfPreviewBufferTags<CR>
-nmap <Leader>o :FzfPreviewOldFiles<CR>
+nmap <Leader>b :Buffers<CR>
+nmap <Leader>g :GFiles?<CR>
+nmap <Leader>j :Tags<CR>
+nmap <Leader>o :History<CR>
 
 " vim-test mappings
 nmap <silent> <leader>r ::TestFile<CR>
@@ -213,6 +214,8 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
 nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
 nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
+" CocAction
+nmap <leader>do <Plug>(coc-codeaction)
 
 " Go to definition in a new window
 nnoremap <silent><C-]> <C-w><C-]><C-w>T
@@ -240,9 +243,11 @@ let g:ale_lint_on_insert_leave = 0
 let g:ale_linters = {
 \  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb'],
 \  'javascript': ['eslint', 'prettier'],
-\  'vue': ['eslint', 'prettier']
+\  'vue': ['eslint', 'prettier'],
+\  'typescript': ['eslint', 'prettier']
 \}
-let g:ale_linters_explicit = 1
+let g:ale_linters_explicit = 1 " only use linters from g:ale_linters
+let g:ale_lint_on_enter = 0 " don't run ale when opening files
 
 
 " JsBeautify
