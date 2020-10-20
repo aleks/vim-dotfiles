@@ -246,21 +246,13 @@ endfunc
 
 " Ale.vim
 let g:ale_open_list = 1 " open loclist on error
-" lint only on save
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
-" let g:ale_lint_on_enter = 0 " Don't lint files on open
-
+let g:ale_linters_explicit = 1 " only use linters from g:ale_linters
 " Use only defined linters
 let g:ale_linters = {
 \  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb'],
-\  'javascript': ['eslint', 'prettier'],
-\  'vue': ['eslint', 'prettier'],
-\  'typescript': ['eslint', 'prettier']
 \}
-let g:ale_linters_explicit = 1 " only use linters from g:ale_linters
-let g:ale_lint_on_enter = 0 " don't run ale when opening files
-
 
 " JsBeautify
 map <c-f> :call JsBeautify()<cr>
