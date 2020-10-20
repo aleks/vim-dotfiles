@@ -233,6 +233,17 @@ function! s:GoToDefinition()
   endif
 endfunction
 
+" Coc multicursor
+nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" VSCode like cursor
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc
+
 " Ale.vim
 let g:ale_open_list = 1 " open loclist on error
 " lint only on save
