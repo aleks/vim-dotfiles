@@ -44,13 +44,14 @@ Plug 'dense-analysis/ale' " nice linter, but can slow down vim
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
 Plug 'leafgarland/typescript-vim' " typescript syntax
 Plug 'elixir-editors/vim-elixir' " elixir syntax
+Plug 'jparise/vim-graphql' " GraphQL highlighting
 
 " Snippets
 Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
 
 " JavaScript
-" Plug 'posva/vim-vue'
+Plug 'posva/vim-vue'
 
 call plug#end()
 " Plugins end
@@ -94,9 +95,14 @@ set pastetoggle=<F9>              " Toggle paste mode with F9
 
 filetype plugin indent on
 
-" Color scheme
+" Color scheme - get colors via `:highlight`
 highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
+highlight Pmenu ctermbg=0 ctermfg=248
+highlight PmenuSel ctermbg=11 ctermfg=0
+highlight CocFloating ctermbg=0
+highlight CocErrorSign ctermfg=9
+highlight CocHintSign ctermfg=11
 
 " Quick window resizing
 nnoremap <C-j> <C-w>j
@@ -144,10 +150,12 @@ command! -bang -nargs=* Rg
 " FZF-Preview
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>g :GFiles?<CR>
-nmap <Leader>j :Tags<CR>
+nmap <Leader>j :BTags<CR>
 nmap <Leader>o :History<CR>
 
 " vim-test mappings
+let g:test#javascript#runner = 'jest'
+let test#strategy = 'neovim'
 nmap <silent> <leader>r ::TestFile<CR>
 nmap <silent> <leader>c :TestNearest<CR>
 " Use C-o to switch to normal mode in terminal buffer
@@ -169,6 +177,7 @@ let g:airline#extensions#coc#error_symbol = 'Error: '
 let g:snipMate = {}
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
+let g:snipMate = { 'snippet_version' : 1 }
 
 " Make ctrl-n autocompletion scrollable with j/k
 " inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
@@ -206,7 +215,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-" Use <c-space> to trigger completion.
+
+" Use <C-n> to trigger completion.
 inoremap <silent><expr> <C-n> coc#refresh()
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -244,7 +254,7 @@ function! s:select_current_word()
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
 
-" Ale.vim
+" ALE.vim
 let g:ale_open_list = 1 " open loclist on error
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 0
