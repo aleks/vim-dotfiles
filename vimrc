@@ -225,6 +225,9 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
 nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
 nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gy <Plug>(coc-type-definition)
 " CocAction
 nmap <leader>do <Plug>(coc-codeaction)
 
