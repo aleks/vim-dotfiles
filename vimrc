@@ -25,9 +25,14 @@ Plug 'editorconfig/editorconfig-vim' " use .editorconfig
 Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
 " Install additional coc extensions:
+" :CocInstall coc-tsserver
+" :CocInstall coc-eslint
+" :CocInstall coc-json
+" :CocInstall @yaegassy/coc-volar
 " :CocInstall coc-solargraph
+" :CocInstall coc-elixir
 " :CocInstall coc-snippets
-" :CocInstall coc-vetur
+
 Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
 
 " Ruby / Rails
@@ -40,18 +45,14 @@ Plug 'ngmy/vim-rubocop' " support for rubocop
 Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
 " Syntax
-Plug 'dense-analysis/ale' " nice linter, but can slow down vim
 Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
 Plug 'leafgarland/typescript-vim' " typescript syntax
 Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'jparise/vim-graphql' " GraphQL highlighting
+Plug 'posva/vim-vue' " Vue highlighting
 
 " Snippets
-Plug 'MarcWeber/vim-addon-mw-utils' | Plug 'tomtom/tlib_vim' | Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-
-" JavaScript
-Plug 'posva/vim-vue'
 
 call plug#end()
 " Plugins end
@@ -173,25 +174,10 @@ let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline#extensions#coc#error_symbol = 'Error: '
 
-" Snippets
-let g:snipMate = {}
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
-let g:snipMate = { 'snippet_version' : 1 }
-
-" Make ctrl-n autocompletion scrollable with j/k
-" inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-" inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
-
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
   source ~/vim-dotfiles/vimrc_local
 endif
-
-" Elm Settings
-let g:elm_setup_keybindings = 0
-
-
 
 " Vim Rubocop
 nnoremap <Leader>rc :RuboCop<CR>
@@ -218,14 +204,13 @@ endfunction
 
 " Use <C-n> to trigger completion.
 inoremap <silent><expr> <C-n> coc#refresh()
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" coc jump to definition
 " Use coc-definition with <Leader>d
 nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
 nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
 nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent><Leader>i <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> gy <Plug>(coc-type-definition)
 " CocAction
@@ -234,7 +219,6 @@ nmap <leader>do <Plug>(coc-codeaction)
 " Go to definition in a new window
 nnoremap <silent><C-]> <C-w><C-]><C-w>T
 
-" Try jumpDefinition from coc, than <C-]> and then search in file
 function! s:GoToDefinition()
   if CocAction('jumpDefinition', 'tab drop')
     return v:true
@@ -245,6 +229,7 @@ function! s:GoToDefinition()
     call searchdecl(expand('<cword>'))
   endif
 endfunction
+" coc jump to definition end
 
 " Coc multicursor
 nmap <silent> <C-c> <Plug>(coc-cursors-position)
@@ -256,18 +241,25 @@ function! s:select_current_word()
   endif
   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
 endfunc
+" Coc multicursor end
 
-" ALE.vim
-let g:ale_open_list = 1 " open loclist on error
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 0
-let g:ale_linters_explicit = 1 " only use linters from g:ale_linters
-" Use only defined linters
-let g:ale_linters = {
-\  'ruby': ['ruby', 'solargraph', 'sorbet', 'standardrb'],
-\  'javascript': ['eslint', 'prettier'],
-\  'vue': ['eslint', 'prettier'],
-\}
+" coc-snippets
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+" Select snippet via tab
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+let g:coc_snippet_next = '<tab>'
+" coc-snippets end
 
 " JsBeautify
 map <c-f> :call JsBeautify()<cr>
@@ -286,8 +278,3 @@ let g:ctrlsf_context = '-B 2 -A 2'
 
 " vim-rubocop
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
-
-" vue-language-server
-let g:LanguageClient_serverCommands = {
-\ 'vue': ['vls']
-\ }
