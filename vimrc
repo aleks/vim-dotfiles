@@ -6,7 +6,7 @@ Plug 'vim-airline/vim-airline' " status line
 Plug 'vim-airline/vim-airline-themes' " status line themes
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
 Plug 'wesQ3/vim-windowswap' " swap splits around
-Plug 'junegunn/vim-peekaboo' " register preview
+" Plug 'junegunn/vim-peekaboo' " register preview
 
 " Fuzzy Finders and Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
@@ -45,7 +45,7 @@ Plug 'ngmy/vim-rubocop' " support for rubocop
 Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
 " Syntax
-Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
+" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
 Plug 'leafgarland/typescript-vim' " typescript syntax
 Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'jparise/vim-graphql' " GraphQL highlighting
