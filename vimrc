@@ -23,7 +23,7 @@ Plug 'tomtom/tcomment_vim' " better comment creation, i.e. with <ctrl-_>
 Plug 'majutsushi/tagbar' " sidebar to show ctags data
 Plug 'editorconfig/editorconfig-vim' " use .editorconfig
 Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
+" Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
 " Install additional coc extensions:
 " :CocInstall coc-tsserver
 " :CocInstall coc-eslint
@@ -46,13 +46,19 @@ Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
 " Syntax
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
-Plug 'leafgarland/typescript-vim' " typescript syntax
-Plug 'elixir-editors/vim-elixir' " elixir syntax
-Plug 'jparise/vim-graphql' " GraphQL highlighting
-Plug 'posva/vim-vue' " Vue highlighting
+" Plug 'leafgarland/typescript-vim' " typescript syntax
+" Plug 'elixir-editors/vim-elixir' " elixir syntax
+" Plug 'jparise/vim-graphql' " GraphQL highlighting
+" Plug 'posva/vim-vue' " Vue highlighting
 
 " Snippets
 Plug 'honza/vim-snippets'
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" Neovim LSP
+Plug 'neovim/nvim-lspconfig'
 
 call plug#end()
 " Plugins end
@@ -172,7 +178,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='angr'
 let g:airline_skip_empty_sections = 1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline#extensions#coc#error_symbol = 'Error: '
+" let g:airline#extensions#coc#error_symbol = 'Error: '
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
@@ -182,84 +188,84 @@ endif
 " Vim Rubocop
 nnoremap <Leader>rc :RuboCop<CR>
 
-" CoC.nvim
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" " CoC.nvim
+" " if hidden is not set, TextEdit might fail.
+" set hidden
+" " Some servers have issues with backup files, see #649
+" set nobackup
+" set nowritebackup
+" " You will have bad experience for diagnostic messages when it's default 4000.
+" set updatetime=300
+" " don't give |ins-completion-menu| messages.
+" set shortmess+=c
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
-" Use <C-n> to trigger completion.
-inoremap <silent><expr> <C-n> coc#refresh()
-
-" coc jump to definition
-" Use coc-definition with <Leader>d
-nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
-nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
-nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent><Leader>i <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-" CocAction
-nmap <leader>do <Plug>(coc-codeaction)
-
-" Go to definition in a new window
-nnoremap <silent><C-]> <C-w><C-]><C-w>T
-
-function! s:GoToDefinition()
-  if CocAction('jumpDefinition', 'tab drop')
-    return v:true
-  endif
-
-  let ret = execute("silent! normal \<C-]>")
-  if ret[:5] =~ "Error"
-    call searchdecl(expand('<cword>'))
-  endif
-endfunction
-" coc jump to definition end
-
-" Coc multicursor
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-" VSCode like cursor
-nmap <expr> <silent> <C-d> <SID>select_current_word()
-function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
-" Coc multicursor end
-
-" coc-snippets
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
-
-" Select snippet via tab
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-let g:coc_snippet_next = '<tab>'
-" coc-snippets end
+" " Use <C-n> to trigger completion.
+" inoremap <silent><expr> <C-n> coc#refresh()
+"
+" " coc jump to definition
+" " Use coc-definition with <Leader>d
+" nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
+" nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
+" nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
+" nmap <silent><Leader>i <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" " CocAction
+" nmap <leader>do <Plug>(coc-codeaction)
+"
+" " Go to definition in a new window
+" nnoremap <silent><C-]> <C-w><C-]><C-w>T
+"
+" function! s:GoToDefinition()
+"   if CocAction('jumpDefinition', 'tab drop')
+"     return v:true
+"   endif
+"
+"   let ret = execute("silent! normal \<C-]>")
+"   if ret[:5] =~ "Error"
+"     call searchdecl(expand('<cword>'))
+"   endif
+" endfunction
+" " coc jump to definition end
+"
+" " Coc multicursor
+" nmap <silent> <C-c> <Plug>(coc-cursors-position)
+" " VSCode like cursor
+" nmap <expr> <silent> <C-d> <SID>select_current_word()
+" function! s:select_current_word()
+"   if !get(g:, 'coc_cursors_activated', 0)
+"     return "\<Plug>(coc-cursors-word)"
+"   endif
+"   return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+" endfunc
+" " Coc multicursor end
+"
+" " coc-snippets
+" " Use <leader>x for convert visual selected code to snippet
+" xmap <leader>x  <Plug>(coc-convert-snippet)
+"
+" " Select snippet via tab
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+" let g:coc_snippet_next = '<tab>'
+" " coc-snippets end
 
 " JsBeautify
 map <c-f> :call JsBeautify()<cr>
@@ -278,3 +284,73 @@ let g:ctrlsf_context = '-B 2 -A 2'
 
 " vim-rubocop
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
+
+" Treesitter config
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "ruby", "typescript", "javascript", "tsx", "vue", "graphql", "elixir", "dockerfile", "css", "go", "json", "html", "scss", "lua" },
+  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
+
+" Language Server Protocol Config
+lua << EOF
+lspconfig = require'lspconfig'
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', ',ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', ',e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', ',q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+local servers = {
+  "solargraph",
+  "tsserver",
+  "volar",
+  "html",
+  "eslint",
+}
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    flags = { debounce_text_changes = 150 }
+  }
+end
+
+EOF
