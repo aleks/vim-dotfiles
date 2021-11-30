@@ -2,25 +2,21 @@
 call plug#begin('~/.vim/plugged')
 
 " Interface
-Plug 'vim-airline/vim-airline' " status line
-Plug 'vim-airline/vim-airline-themes' " status line themes
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
 Plug 'wesQ3/vim-windowswap' " swap splits around
-" Plug 'junegunn/vim-peekaboo' " register preview
 
 " Fuzzy Finders and Search
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'yuki-ycino/fzf-preview.vim'
-Plug 'dyng/ctrlsf.vim'
 
 " Tools
 Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
 Plug 'tpope/vim-surround' " makes it easy to switch sourroundings like 'hello' to double quotes
 Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair
 Plug 'tomtom/tcomment_vim' " better comment creation, i.e. with <ctrl-_>
-Plug 'majutsushi/tagbar' " sidebar to show ctags data
 Plug 'editorconfig/editorconfig-vim' " use .editorconfig
 Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
@@ -36,13 +32,13 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code co
 Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
 
 " Ruby / Rails
-Plug 'tpope/vim-rails' " adds a bunch of rails helpers
+" Plug 'tpope/vim-rails' " adds a bunch of rails helpers
 Plug 'slim-template/vim-slim' " support for slim templates
 Plug 'asux/vim-capybara' " support for capybara
 Plug 'ngmy/vim-rubocop' " support for rubocop
 
 " Git
-Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
+Plug 'tpope/vim-fugitive' " adds git commands like :Git blame
 
 " Syntax
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
@@ -167,12 +163,15 @@ endif
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
-" Airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme='angr'
-let g:airline_skip_empty_sections = 1
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-let g:airline#extensions#coc#error_symbol = 'Error: '
+" Lualine
+lua << END
+require'lualine'.setup {
+  options = {
+    icons_enabled = false,
+    theme = 'nord',
+  }
+}
+END
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
