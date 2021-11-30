@@ -2,8 +2,9 @@
 call plug#begin('~/.vim/plugged')
 
 " Interface
-Plug 'vim-airline/vim-airline' " status line
-Plug 'vim-airline/vim-airline-themes' " status line themes
+" Plug 'vim-airline/vim-airline' " status line
+" Plug 'vim-airline/vim-airline-themes' " status line themes
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
 Plug 'wesQ3/vim-windowswap' " swap splits around
 " Plug 'junegunn/vim-peekaboo' " register preview
@@ -36,7 +37,7 @@ Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
 Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
 
 " Ruby / Rails
-Plug 'tpope/vim-rails' " adds a bunch of rails helpers
+" Plug 'tpope/vim-rails' " adds a bunch of rails helpers
 Plug 'slim-template/vim-slim' " support for slim templates
 Plug 'asux/vim-capybara' " support for capybara
 Plug 'ngmy/vim-rubocop' " support for rubocop
@@ -44,21 +45,18 @@ Plug 'ngmy/vim-rubocop' " support for rubocop
 " Git
 Plug 'tpope/vim-fugitive' " adds git commands like :Gblame
 
-" Syntax
-" Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
-" Plug 'leafgarland/typescript-vim' " typescript syntax
-" Plug 'elixir-editors/vim-elixir' " elixir syntax
-" Plug 'jparise/vim-graphql' " GraphQL highlighting
-" Plug 'posva/vim-vue' " Vue highlighting
-
-" Snippets
-Plug 'honza/vim-snippets'
-
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
+
+" Autocompletion
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+
 
 call plug#end()
 " Plugins end
@@ -174,11 +172,11 @@ endif
 let g:html_indent_tags = 'li\|p'
 
 " Airline
-let g:airline_powerline_fonts = 1
-let g:airline_theme='angr'
-let g:airline_skip_empty_sections = 1
-let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
-" let g:airline#extensions#coc#error_symbol = 'Error: '
+" let g:airline_powerline_fonts = 1
+" let g:airline_theme='angr'
+" let g:airline_skip_empty_sections = 1
+" let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+" " let g:airline#extensions#coc#error_symbol = 'Error: '
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
@@ -288,13 +286,25 @@ let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
 " Treesitter config
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "ruby", "typescript", "javascript", "tsx", "vue", "graphql", "elixir", "dockerfile", "css", "go", "json", "html", "scss", "lua" },
-  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  ensure_installed = {
+    "ruby",
+    "typescript",
+    "javascript",
+    "tsx",
+    "vue",
+    "graphql",
+    "elixir",
+    "dockerfile",
+    "css",
+    "go",
+    "json",
+    "html",
+    "scss",
+    "lua"
+  },
+  sync_install = false,
   highlight = {
     enable = true,              -- false will disable the whole extension
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
     additional_vim_regex_highlighting = false,
@@ -302,7 +312,7 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-" Language Server Protocol Config
+" LSP + Completion Config
 lua << EOF
 lspconfig = require'lspconfig'
 
@@ -310,10 +320,10 @@ lspconfig = require'lspconfig'
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
@@ -323,20 +333,17 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', ',ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', ',e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', ',q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 local servers = {
   "solargraph",
@@ -346,11 +353,73 @@ local servers = {
   "eslint",
 }
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
+for _, lspserver in ipairs(servers) do
+  lspconfig[lspserver].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = { debounce_text_changes = 150 }
   }
 end
 
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
+
 EOF
+
+" Lualine config
+lua << END
+require'lualine'.setup{
+  options = {
+    theme = 'nord',
+    icons_enabled = false,
+  },
+}
+END
