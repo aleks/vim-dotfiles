@@ -10,7 +10,6 @@ Plug 'wesQ3/vim-windowswap' " swap splits around
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plug 'junegunn/fzf.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'yuki-ycino/fzf-preview.vim'
 
 " Tools
 Plug 'tpope/vim-eunuch' " unix commands like :Rename, :Mkdir etc.
@@ -132,23 +131,16 @@ let NERDTreeShowHidden = 1
 " FZF / fzf.vim
 let g:fzf_tags_command = 'ctags -R'
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
-nmap <Leader>t :FZF<CR>
+nmap <Leader>t :Files<CR>
 nnoremap <Leader>rg :Rg<CR>
 nnoremap <Leader>h :History<CR>
 nnoremap <Leader>gl :Commits<CR>
-" Use ripgrep instead of ag
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case --files'.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" FZF-Preview
+nmap <Leader>w :Windows<CR>
 nmap <Leader>b :Buffers<CR>
 nmap <Leader>g :GFiles?<CR>
 nmap <Leader>j :BTags<CR>
-nmap <Leader>o :History<CR>
+nmap <Leader>m :Marks<CR>
+nmap <Leader>p :Commands<CR>
 
 " vim-test mappings
 let g:test#javascript#runner = 'jest'
