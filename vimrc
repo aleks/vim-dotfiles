@@ -38,6 +38,7 @@ Plug 'ngmy/vim-rubocop' " support for rubocop
 
 " Git
 Plug 'tpope/vim-fugitive' " adds git commands like :Git blame
+Plug 'kdheepak/lazygit.nvim'
 
 " Syntax
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
@@ -269,3 +270,6 @@ let g:ctrlsf_context = '-B 2 -A 2'
 
 " vim-rubocop
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
+
+" Lazygit
+nnoremap <silent> <leader>gg :LazyGit<CR>
