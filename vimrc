@@ -138,7 +138,6 @@ nnoremap <Leader>h :History<CR>
 nnoremap <Leader>gl :Commits<CR>
 nmap <Leader>w :Windows<CR>
 nmap <Leader>b :Buffers<CR>
-nmap <Leader>g :GFiles?<CR>
 nmap <Leader>j :BTags<CR>
 nmap <Leader>m :Marks<CR>
 nmap <Leader>p :Commands<CR>
@@ -162,6 +161,15 @@ require'lualine'.setup {
   options = {
     icons_enabled = false,
     theme = 'nord',
+  },
+  sections = {
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,  -- displays file status (readonly status, modified status)
+        path = 1,            -- 0 = just filename, 1 = relative path, 2 = absolute path
+      }
+    }
   }
 }
 END
@@ -272,4 +280,4 @@ let g:ctrlsf_context = '-B 2 -A 2'
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
 
 " Lazygit
-nnoremap <silent> <leader>gg :LazyGit<CR>
+nnoremap <silent> <leader>g :LazyGit<CR>
