@@ -28,8 +28,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code co
 " :CocInstall coc-elixir
 " :CocInstall coc-snippets
 
-Plug 'maksimr/vim-jsbeautify' " format javascript - needs js-beautify: npm -g install js-beautify
-
 " Ruby / Rails
 " Plug 'tpope/vim-rails' " adds a bunch of rails helpers
 Plug 'slim-template/vim-slim' " support for slim templates
@@ -260,9 +258,6 @@ function! s:check_back_space() abort
 endfunction
 let g:coc_snippet_next = '<tab>'
 " coc-snippets end
-
-" JsBeautify
-map <c-f> :call JsBeautify()<cr>
 
 " Clipboard copy via shortcut
 vmap <Leader>cb "*y
