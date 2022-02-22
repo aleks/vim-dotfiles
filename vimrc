@@ -83,12 +83,12 @@ set shiftwidth=2
 set expandtab
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
+set number relativenumber         " Enable relative linenumbers
 
 " Function Keys
-map <F12> :NERDTreeToggle<CR>     " Toggle NERDTree
-nnoremap <F11> :set nonumber!<CR> " Toggle linenumbers
-nmap <F10> :TagbarToggle<CR>
-set pastetoggle=<F9>              " Toggle paste mode with F9
+map <F12> :NERDTreeToggle<CR>               " Toggle NERDTree
+map <F11> :set number! relativenumber!<CR>  " Toggle relative line numbers
+set pastetoggle=<F9>                        " Toggle paste mode with F9
 
 filetype plugin indent on
 
