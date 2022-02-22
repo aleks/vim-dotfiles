@@ -74,14 +74,20 @@ set incsearch                     " do incremental searching
 set laststatus=2                  " Always display the status line
 set autowrite                     " Automatically :write before running commands
 set hlsearch                      " highlight search
-set number                        " show linenumbers
 set numberwidth=4                 " linenumbers width
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
+
+" Enable/disable relative linenumbers when switching buffers
 set number relativenumber         " Enable relative linenumbers
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " Function Keys
 map <F12> :NERDTreeToggle<CR>               " Toggle NERDTree
