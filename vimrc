@@ -12,6 +12,7 @@ Plug 'L3MON4D3/LuaSnip'
 
 " Interface
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'arkav/lualine-lsp-progress'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
 Plug 'wesQ3/vim-windowswap' " swap splits around
 
@@ -275,8 +276,12 @@ require'lualine'.setup {
         'filename',
         file_status = true,  -- displays file status (readonly status, modified status)
         path = 1,            -- 0 = just filename, 1 = relative path, 2 = absolute path
+
       }
-    }
+    },
+    lualine_x = {
+      'lsp_progress',      -- from arkav/lualine-lsp-progress
+    },
   }
 }
 END
