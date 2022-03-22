@@ -1,6 +1,15 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 
+" LSP Plugin
+Plug 'neovim/nvim-lspconfig'
+
+" Autocompletion plugins, using LS
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
+
 " Interface
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle'  } " file tree browser
@@ -18,15 +27,6 @@ Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair
 Plug 'tomtom/tcomment_vim' " better comment creation, i.e. with <ctrl-_>
 Plug 'editorconfig/editorconfig-vim' " use .editorconfig
 Plug 'janko-m/vim-test' " shortcut support for most testing frameworks
-Plug 'neoclide/coc.nvim', {'branch': 'release'} " does a lot, but mainly code completion via solargraph
-" Install additional coc extensions:
-" :CocInstall coc-tsserver
-" :CocInstall coc-eslint
-" :CocInstall coc-json
-" :CocInstall @yaegassy/coc-volar
-" :CocInstall coc-solargraph
-" :CocInstall coc-elixir
-" :CocInstall coc-snippets
 
 " Ruby / Rails
 " Plug 'tpope/vim-rails' " adds a bunch of rails helpers
@@ -45,11 +45,117 @@ Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'jparise/vim-graphql' " GraphQL highlighting
 Plug 'posva/vim-vue' " Vue highlighting
 
-" Snippets
-Plug 'honza/vim-snippets'
-
 call plug#end()
 " Plugins end
+
+" LSP Config
+lua << END
+
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+-- LSP Server Config
+local opts = { noremap=true, silent=true }
+vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>td', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+-- Use a loop to conveniently call 'setup' on multiple servers and
+-- map buffer local keybindings when the language server attaches
+
+-- Install packages:
+-- solargraph: gem install --user-install solargraph (maybe install in specific ruby as well)
+-- tsserver: npm install -g typescript typescript-language-server
+-- eslint: npm i -g vscode-langservers-extracted
+-- cssls: npm i -g vscode-langservers-extracted
+-- dockerls: npm install -g dockerfile-language-server-nodejs
+-- graphql: npm install -g graphql-language-service-cli
+-- volar: npm install -g @volar/vue-language-server
+
+local servers = { 'solargraph', 'tsserver', 'eslint', 'cssls', 'dockerls', 'graphql', 'volar' }
+for _, lsp in pairs(servers) do
+  require('lspconfig')[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = {
+      -- This will be the default in neovim 0.7+
+      debounce_text_changes = 150,
+    }
+  }
+end
+-- LSP Server Config End
+
+-- Autocompletion Setup End
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
+-- Autocompletion Setup End
+
+END
+" LSP Config End
 
 " Encoding
 set encoding=utf-8
@@ -101,9 +207,6 @@ highlight NonText guibg=#060606
 highlight Folded  guibg=#0A0A0A guifg=#9090D0
 highlight Pmenu ctermbg=0 ctermfg=248
 highlight PmenuSel ctermbg=11 ctermfg=0
-highlight CocFloating ctermbg=0
-highlight CocErrorSign ctermfg=9
-highlight CocHintSign ctermfg=11
 
 " Quick window resizing
 nnoremap <C-j> <C-w>j
@@ -185,85 +288,6 @@ endif
 
 " Vim Rubocop
 nnoremap <Leader>rc :RuboCop<CR>
-
-" CoC.nvim
-" if hidden is not set, TextEdit might fail.
-set hidden
-" Some servers have issues with backup files, see #649
-set nobackup
-set nowritebackup
-" You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Use <C-n> to trigger completion.
-inoremap <silent><expr> <C-n> coc#refresh()
-
-" coc jump to definition
-" Use coc-definition with <Leader>d
-nmap <silent><Leader>d :call <SID>GoToDefinition()<CR>
-nmap <silent><Leader>ds :call CocAction('jumpDefinition', 'split')<CR>
-nmap <silent><Leader>dv :call CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent><Leader>i <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> gy <Plug>(coc-type-definition)
-" CocAction
-nmap <leader>do <Plug>(coc-codeaction)
-
-" Go to definition in a new window
-nnoremap <silent><C-]> <C-w><C-]><C-w>T
-
-function! s:GoToDefinition()
-  if CocAction('jumpDefinition', 'tab drop')
-    return v:true
-  endif
-
-  let ret = execute("silent! normal \<C-]>")
-  if ret[:5] =~ "Error"
-    call searchdecl(expand('<cword>'))
-  endif
-endfunction
-" coc jump to definition end
-
-" Coc multicursor
-nmap <silent> <C-c> <Plug>(coc-cursors-position)
-" VSCode like cursor
-nmap <expr> <silent> <C-d> <SID>select_current_word()
-function! s:select_current_word()
-  if !get(g:, 'coc_cursors_activated', 0)
-    return "\<Plug>(coc-cursors-word)"
-  endif
-  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
-endfunc
-" Coc multicursor end
-
-" coc-snippets
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
-
-" Select snippet via tab
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-let g:coc_snippet_next = '<tab>'
-" coc-snippets end
 
 " Clipboard copy via shortcut
 vmap <Leader>cb "*y
