@@ -93,7 +93,17 @@ end
 -- graphql: npm install -g graphql-language-service-cli
 -- volar: npm install -g @volar/vue-language-server
 
-local servers = { 'solargraph', 'tsserver', 'eslint', 'cssls', 'dockerls', 'graphql', 'volar' }
+local servers = {
+  'solargraph',
+  'tsserver',
+  'eslint',
+  'cssls',
+  'dockerls',
+  'graphql',
+  'volar',
+  'gopls'
+}
+
 for _, lsp in pairs(servers) do
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
