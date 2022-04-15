@@ -36,6 +36,9 @@ Plug 'slim-template/vim-slim' " support for slim templates
 Plug 'asux/vim-capybara' " support for capybara
 Plug 'ngmy/vim-rubocop' " support for rubocop
 
+" Go
+Plug 'fatih/vim-go'
+
 " Git
 Plug 'tpope/vim-fugitive' " adds git commands like :Git blame
 Plug 'kdheepak/lazygit.nvim'
@@ -92,6 +95,7 @@ end
 -- dockerls: npm install -g dockerfile-language-server-nodejs
 -- graphql: npm install -g graphql-language-service-cli
 -- volar: npm install -g @volar/vue-language-server
+-- gopls: go install golang.org/x/tools/gopls@latest
 
 local servers = {
   'solargraph',
@@ -196,8 +200,8 @@ set laststatus=2                  " Always display the status line
 set autowrite                     " Automatically :write before running commands
 set hlsearch                      " highlight search
 set numberwidth=4                 " linenumbers width
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set expandtab
 set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
