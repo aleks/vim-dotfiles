@@ -4,6 +4,12 @@ call plug#begin('~/.vim/plugged')
 " LSP Plugin
 Plug 'neovim/nvim-lspconfig'
 
+" TODO:
+" Add plugins
+" https://github.com/mg979/vim-visual-multi
+" https://github.com/nvim-telescope/telescope.nvim
+" https://github.com/nvim-treesitter/nvim-treesitter
+
 " Autocompletion plugins, using LS
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -200,10 +206,10 @@ set laststatus=2                  " Always display the status line
 set autowrite                     " Automatically :write before running commands
 set hlsearch                      " highlight search
 set numberwidth=4                 " linenumbers width
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
-set list listchars=tab:»·,trail:· " Display extra whitespace
+" set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
 
 " Enable/disable relative linenumbers when switching buffers
