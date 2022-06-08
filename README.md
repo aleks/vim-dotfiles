@@ -10,6 +10,7 @@ I use [vim-plugin](https://github.com/junegunn/vim-plug) to handle my plugins. Y
 git clone https://github.com/aleks/vim-dotfiles.git vim-dotfiles
 ln -s vim-dotfiles/vimrc .vimrc
 ln -s vim-dotfiles/vim .vim
+ln -s vim-dotfiles/init.vim ~/.config/nvim/init.vim
 ```
 
 Start ```vim```, run ```:PlugInstall```. done!
