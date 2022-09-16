@@ -107,7 +107,6 @@ end
 -- graphql: npm install -g graphql-language-service-cli
 -- volar: npm install -g @volar/vue-language-server
 -- gopls: go install golang.org/x/tools/gopls@latest
--- prismals: npm install -g @prisma/language-server
 
 local servers = {
   'solargraph',
@@ -118,7 +117,6 @@ local servers = {
   'graphql',
   'volar',
   'gopls'
-  'prismals'
 }
 
 for _, lsp in pairs(servers) do
@@ -147,11 +145,11 @@ cmp.setup {
     end,
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-j>'] = cmp.mapping.select_next_item(),
+    ['<C-k>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-n>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -179,6 +177,7 @@ cmp.setup {
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' },
   },
 }
 
@@ -223,7 +222,6 @@ set splitbelow                    " Horizontal split below current.
 set splitright                    " Vertical split to right of current.
 
 " Enable/disable relative linenumbers when switching buffers
-" set number
 set number relativenumber         " Enable relative linenumbers
 augroup numbertoggle
   autocmd!
@@ -233,7 +231,7 @@ augroup END
 
 " Function Keys
 map <F12> :NERDTreeToggle<CR>               " Toggle NERDTree
-map <F11> :set number! relativenumber!<CR>  " Toggle relative line numbers
+map <F11> :set relativenumber!<CR>          " Toggle relative line numbers
 set pastetoggle=<F9>                        " Toggle paste mode with F9
 
 filetype plugin indent on
@@ -321,14 +319,6 @@ require'lualine'.setup {
 }
 END
 
-" Load local settings from vimrc_local
-if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
-  source ~/vim-dotfiles/vimrc_local
-endif
-
-" Vim Rubocop
-nnoremap <Leader>rc :RuboCop<CR>
-
 " Clipboard copy via shortcut
 vmap <Leader>cb "*y
 
@@ -336,13 +326,16 @@ vmap <Leader>cb "*y
 noremap <Tab> :tabn<CR>
 noremap <S-Tab> :tabp<CR>
 
-" ctrlsf.vim
-nmap <Leader>f <Plug>CtrlSFPrompt
-let g:ctrlsf_auto_close = { "normal" : 0, "compact": 0 }
-let g:ctrlsf_context = '-B 2 -A 2'
-
 " vim-rubocop
+nnoremap <Leader>rc :RuboCop<CR>
 let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
 
 " Lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
+
+
+
+" Load local settings from vimrc_local
+if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
+  source ~/vim-dotfiles/vimrc_local
+endif
