@@ -118,7 +118,7 @@ local servers = {
   'graphql',
   'volar',
   'gopls'
-  'prismals',
+  'prismals'
 }
 
 for _, lsp in pairs(servers) do
