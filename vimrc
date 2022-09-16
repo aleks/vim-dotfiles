@@ -107,6 +107,7 @@ end
 -- graphql: npm install -g graphql-language-service-cli
 -- volar: npm install -g @volar/vue-language-server
 -- gopls: go install golang.org/x/tools/gopls@latest
+-- prismals: npm install -g @prisma/language-server
 
 local servers = {
   'solargraph',
