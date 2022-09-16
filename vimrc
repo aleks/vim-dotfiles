@@ -16,6 +16,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
+Plug 'ojroques/nvim-lspfuzzy' " Use FZF with LSP
 
 " Interface
 Plug 'nvim-lualine/lualine.nvim'
@@ -55,12 +56,16 @@ Plug 'leafgarland/typescript-vim' " typescript syntax
 Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'jparise/vim-graphql' " GraphQL highlighting
 Plug 'posva/vim-vue' " Vue highlighting
+Plug 'pantharshit00/vim-prisma' " Prisma highlighting
 
 call plug#end()
 " Plugins end
 
 " LSP Config
 lua << END
+
+-- Enable FZF in LSP
+require('lspfuzzy').setup {}
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -112,6 +117,7 @@ local servers = {
   'graphql',
   'volar',
   'gopls'
+  'prismals',
 }
 
 for _, lsp in pairs(servers) do
@@ -212,7 +218,11 @@ set expandtab
 " set list listchars=tab:»·,trail:· " Display extra whitespace
 set laststatus=2                  " Always display the status line, even if only one window is displayed
 
+set splitbelow                    " Horizontal split below current.
+set splitright                    " Vertical split to right of current.
+
 " Enable/disable relative linenumbers when switching buffers
+" set number
 set number relativenumber         " Enable relative linenumbers
 augroup numbertoggle
   autocmd!
