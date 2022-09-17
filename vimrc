@@ -58,6 +58,7 @@ Plug 'elixir-editors/vim-elixir' " elixir syntax
 Plug 'jparise/vim-graphql' " GraphQL highlighting
 Plug 'posva/vim-vue' " Vue highlighting
 Plug 'pantharshit00/vim-prisma' " Prisma highlighting
+Plug 'hashivim/vim-terraform'
 
 call plug#end()
 " Plugins end
