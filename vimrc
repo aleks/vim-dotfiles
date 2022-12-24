@@ -124,6 +124,7 @@ local servers = {
   'graphql',
   'gopls',
   'denols',
+  'rust_analyzer'
 }
 
 for _, lsp in pairs(servers) do
