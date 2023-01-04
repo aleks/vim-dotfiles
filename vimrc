@@ -124,7 +124,7 @@ local servers = {
   'dockerls',
   'graphql',
   'gopls',
-  'denols',
+  -- 'denols',
   'rust_analyzer'
 }
 
