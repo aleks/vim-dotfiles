@@ -349,7 +349,11 @@ let g:vimrubocop_rubocop_cmd = 'bundle exec rubocop '
 " Lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
 
-
+" vim-gh-line
+let g:gh_line_map_default = 0
+let g:gh_line_blame_map_default = 1
+let g:gh_use_canonical = 1
+let g:gh_line_map = '<leader>gh'
 
 " Load local settings from vimrc_local
 if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
