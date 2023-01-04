@@ -50,6 +50,7 @@ Plug 'fatih/vim-go'
 " Git
 Plug 'tpope/vim-fugitive' " adds git commands like :Git blame
 Plug 'kdheepak/lazygit.nvim'
+Plug 'ruanyl/vim-gh-line' " open current line on github
 
 " Syntax
 " Plug 'kchmck/vim-coffee-script', { 'for': 'coffee'  } " coffee script syntax
