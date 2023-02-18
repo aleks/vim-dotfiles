@@ -354,8 +354,3 @@ let g:gh_line_map_default = 0
 let g:gh_line_blame_map_default = 1
 let g:gh_use_canonical = 1
 let g:gh_line_map = '<leader>gh'
-
-" Load local settings from vimrc_local
-if filereadable( expand("$HOME/vim-dotfiles/vimrc_local")  )
-  source ~/vim-dotfiles/vimrc_local
-endif
