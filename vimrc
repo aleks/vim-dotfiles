@@ -270,7 +270,13 @@ nnoremap <C-j> <C-w>-
 nnoremap <C-l> <C-w><
 nnoremap <C-h> <C-w>>
 
-" Moving splits (with vim-windowswap)
+" Center view when scrolling
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+nnoremap n nzz
+nnoremap N Nzz
+
+" Moving splits with vim-windowswap
 let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <C-w>m :call WindowSwap#EasyWindowSwap()<CR>
 
